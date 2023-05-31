@@ -3,7 +3,7 @@ import Topo from "../components/Topo";
 import Menu from "../components/Menu";
 import Add from "../assets/adicionar.png"
 import Excluir from "../assets/excluir.svg"
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Habitos() {

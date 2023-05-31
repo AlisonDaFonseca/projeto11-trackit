@@ -3,6 +3,7 @@ import Login from "./pages/Login"
 import Cadastro from "./pages/Cadastro"
 import Habitos from "./pages/Habitos"
 import Hoje from "./pages/Hoje"
+import Historico from "./pages/Historico"
 
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/cadastro" element={<Cadastro />}/>
         <Route path="/habitos" element={<Habitos />}/>
         <Route path="/hoje" element={<Hoje />}/>
+        <Route path="/historico" element={<Historico />}/>
       </Routes>
     </BrowserRouter>
 
