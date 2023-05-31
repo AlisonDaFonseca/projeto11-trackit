@@ -1,19 +1,31 @@
+import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
 
 export default function Cadastro() {
 
+    const navigate = useNavigate();
+
+    function cadastrar(e){
+        e.preventDefault();
+        navigate('/');
+    }
+    function login(){
+        navigate('/')
+    }
+
+
     return (
         <SCContainerCadastro>
             <img src={Logo} />
-            <SCForm>
-                <input placeholder="email" />
-                <input placeholder="senha" />
-                <input placeholder="nome" />
-                <input placeholder="foto" />
+            <SCForm onSubmit={cadastrar}>
+                <input placeholder="email" required/>
+                <input placeholder="senha" required/>
+                <input placeholder="nome" required/>
+                <input placeholder="foto" required/>
                 <button>Cadastrar</button>
             </SCForm>
-            <span>Já tem uma conta? Faça login!</span>
+            <span onClick={login}>Já tem uma conta? Faça login!</span>
         </SCContainerCadastro>
     );
 }
@@ -32,6 +44,7 @@ const SCContainerCadastro = styled.div`
     span{
        color: #52B6FF;
        text-decoration: underline;
+       cursor: pointer;
     }
 `;
 const SCForm = styled.form`
@@ -56,5 +69,6 @@ const SCForm = styled.form`
         color: #FFFFFF;
         font-size: 20px;
         margin-bottom: 30px;
+        cursor: pointer;
     }
 `;

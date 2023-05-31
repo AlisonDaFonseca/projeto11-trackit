@@ -1,11 +1,24 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Menu(){
+    const navigate = useNavigate();
+
+    function rotaHoje(){
+        navigate('/hoje');
+    }
+    function rotaHabitos(){
+        navigate('/habitos');
+    }
+    function rotaHistorico(){
+        navigate('/historico');
+    }
+
     return(
         <SCFooter>
-                <span>Hábitos</span>
-                <SCBarraProgresso>
+                <span onClick={rotaHabitos}>Hábitos</span>
+                <SCBarraProgresso onClick={rotaHoje}>
                     <CircularProgressbar
                         value={66}
                         text={'Hoje'}
@@ -19,7 +32,7 @@ export default function Menu(){
                         })}
                     />
                 </SCBarraProgresso>
-                <span>Histórico</span>
+                <span onClick={rotaHistorico}>Histórico</span>
             </SCFooter>
     );
 }
@@ -37,6 +50,7 @@ const SCFooter = styled.footer`
         margin: 0 20px;
         color: #52B6FF;
         font-size: 18px;
+        cursor: pointer;
     }
 `;
 const SCBarraProgresso = styled.div`
@@ -44,4 +58,5 @@ const SCBarraProgresso = styled.div`
     position: absolute;
     bottom: 5px;
     right: 140px;
+    cursor: pointer;
 `;

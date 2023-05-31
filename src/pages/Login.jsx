@@ -1,16 +1,29 @@
+import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
 
 export default function Login() {
+
+    const navigate = useNavigate();
+
+    function logar(e){
+        e.preventDefault();
+        navigate('/habitos');
+    }
+    function cadastrar(){
+        navigate('/cadastro');
+    }
+
+
     return (
         <SCContainerLogin>
             <img src={Logo} />
-            <SCForm>
-                <input placeholder="email" />
-                <input placeholder="senha" />
+            <SCForm onSubmit={logar}>
+                <input type="text" placeholder="email" required/>
+                <input type="password" placeholder="senha" required/>
                 <button>Entrar</button>
             </SCForm>
-            <span>Não tem uma conta? Cadastre-se!</span>
+            <span onClick={cadastrar}>Não tem uma conta? Cadastre-se!</span>
         </SCContainerLogin>
     );
 }
@@ -29,6 +42,7 @@ const SCContainerLogin = styled.div`
     span{
        color: #52B6FF;
        text-decoration: underline;
+       cursor: pointer;
     }
 `;
 const SCForm = styled.form`
@@ -53,5 +67,6 @@ const SCForm = styled.form`
         color: #FFFFFF;
         font-size: 20px;
         margin-bottom: 30px;
+        cursor: pointer;
     }
 `;
