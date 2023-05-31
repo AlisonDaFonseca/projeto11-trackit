@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Logo from "../assets/logo-pequeno.svg"
+import Topo from "../components/Topo";
+import Menu from "../components/Menu";
 import Add from "../assets/adicionar.png"
 import Excluir from "../assets/excluir.svg"
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -8,10 +9,7 @@ import "react-circular-progressbar/dist/styles.css";
 export default function Habitos() {
     return (
         <SCContainerHabitos>
-            <SCHeader>
-                <SCLogo src={Logo} alt="logo cabeçalho" />
-                <SCPerfil src="https://img.elo7.com.br/product/original/3E26D20/desenho-personalizado-para-perfil-desenho-personalizado.jpg" alt="perfil" />
-            </SCHeader>
+            <Topo />
             <SCMain>
                 <SCAdicionarHabito>
                     <h1>Meus hábitos</h1>
@@ -50,24 +48,7 @@ export default function Habitos() {
                 </SCCardSalvo>
                 <span>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</span>
             </SCMain>
-            <SCFooter>
-                <span>Hábitos</span>
-                <SCBarraProgresso>
-                    <CircularProgressbar
-                        value={66}
-                        text={'Hoje'}
-                        background
-                        backgroundPadding={6}
-                        styles={buildStyles({
-                            backgroundColor: "#3e98c7",
-                            textColor: "#fff",
-                            pathColor: "#fff",
-                            trailColor: "transparent",
-                        })}
-                    />
-                </SCBarraProgresso>
-                <span>Histórico</span>
-            </SCFooter>
+            <Menu />
         </SCContainerHabitos>
     );
 }
@@ -79,14 +60,7 @@ const SCContainerHabitos = styled.div`
     margin: 0 auto;
     position: relative;
 `;
-const SCHeader = styled.header`
-    background-color: #126BA5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
-`;
+
 const SCMain = styled.main`
     width: 90%;
     margin: 0 auto;
@@ -141,38 +115,9 @@ const SCSelecaoDias = styled.div`
         margin-top: 5px;
     }
 `;
-const SCLogo = styled.img`
-    width: 97px;
-    height: 49px;
-    margin-left: 10px;
-`
-const SCPerfil = styled.img`
-    width: 51px;
-    height: 51px;
-    border-radius: 98px;
-    margin-right: 10px;
-`;
-const SCFooter = styled.footer`
-    position: absolute;
-    bottom: 0;
-    background-color: #FFFFFF;
-    width: 375px;
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    span{
-        margin: 0 20px;
-        color: #52B6FF;
-        font-size: 18px;
-    }
-`;
-const SCBarraProgresso = styled.div`
-    width: 25%;
-    position: absolute;
-    bottom: 5px;
-    right: 140px;
-`;
+
+
+
 const SCBotaoCancelaSalva = styled.div`
     margin-top: 25px;
     display: flex;
