@@ -1,4 +1,4 @@
-import Logo from "../assets/logo-login.svg"
+import Logo from "../assets/logo.svg"
 import styled from "styled-components"
 
 export default function Login() {
