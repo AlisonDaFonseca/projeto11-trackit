@@ -52,6 +52,7 @@ const SCAdicionarHabito = styled.div`
     margin: 30px 0;
     img{
         width: 40px;
+        cursor: pointer;
     }
     h1{
         font-size: 22px;
