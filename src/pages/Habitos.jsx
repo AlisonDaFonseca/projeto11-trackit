@@ -31,10 +31,8 @@ export default function Habitos() {
 }
 
 const SCContainerHabitos = styled.div`
-    background-color: #F2F2F2;
-    width: 375px;
     min-height: 667px;
-    margin: 75px auto;
+    margin: 100px auto;
     position: relative;
 `;
 

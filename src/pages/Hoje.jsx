@@ -1,38 +1,52 @@
 import Menu from "../components/Menu";
 import Topo from "../components/Topo";
 import styled from "styled-components";
-import { IoCheckbox } from "react-icons/io5";
+import HabitoHoje from "../components/HabitoHoje";
+import { useContext, useEffect, useState } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
+import axios from "axios";
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br' ;
 
 
 export default function Hoje() {
+ 
+    let hoje = dayjs().locale('pt-br');
+    let dia = hoje.format("dddd");
+    dia = hoje.format("dddd")[0].toUpperCase() + hoje.format("dddd").substring(1);
+    dia = dia.replace('-feira', '');
+    const diaN = hoje.format("DD");
+    const mes = hoje.format("MM");
+
+    const [habitosHoje, setHabitosHoje] = useState([])
+
+    const {config} = useContext(UsuarioContext)
+    
+    useEffect(() => {
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
+
+        const promise = axios.get(URL, config);
+
+        promise.then(resposta => setHabitosHoje(resposta.data));
+        promise.catch(erro => console.log(erro.response.data.message));
+    }, []);
+    
+    
+    
     return (
         <SCContainerHoje>
             <Topo />
             <SCTitulo>
-                <h1>Segunda, 17/05</h1>
+                <h1>{dia}, {diaN}/{mes}</h1>
                 <span>Nenhum hábido concluído ainda</span>
             </SCTitulo>
-            <SCCardHabito>
-                <SCTexto>
-                    <h1>Ler 1 capitúlo de livro</h1>
-                    <h2>Sequencia atual: 3 dias</h2>
-                    <h2>Seu recorde: 5 dias</h2>
-                </SCTexto>
-                <IoCheckbox />
-            </SCCardHabito>
-
+            {habitosHoje.map((habito) => <HabitoHoje key={habito.id} habito={habito}/>)  }
             <Menu />
         </SCContainerHoje>
 
     );
 }
-const SCContainerHoje = styled.div`
-    background-color: #F2F2F2;
-    width: 375px;
-    min-height: 667px;
-    margin: 0 auto;
-    position: relative;
-`;
+
 const SCTitulo = styled.div`
     width: 90%;
     margin: 20px auto;
@@ -45,29 +59,8 @@ const SCTitulo = styled.div`
         font-size: 17px
     }
 `;
-const SCCardHabito = styled.div`
-    width: 340px;
-    height: 94px;
-    background: #FFFFFF;
-    border-radius: 5px;
-    margin: 10px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    svg{
-        color: #E7E7E7;
-        width: 69px;
-        height: 69px;
-    }
-`;
-const SCTexto = styled.div`
-    h1{
-        font-size: 20px;
-        line-height: 25px;
-    }
-    h2{
-        font-size: 13px;
-        line-height: 16px;
-    }
+const SCContainerHoje = styled.div`
+    min-height: 667px;
+    position: relative;
+    margin: 100px 0;
 `;

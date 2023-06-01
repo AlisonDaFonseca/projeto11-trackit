@@ -33,6 +33,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	width:375px;
+	margin: 0 auto;
+	background-color: #F2F2F2;
 }
 ol, ul {
 	list-style: none;

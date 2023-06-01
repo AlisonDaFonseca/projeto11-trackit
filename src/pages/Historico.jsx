@@ -16,10 +16,8 @@ export default function Historico(){
     );
 }
 const SCContainerHistorico = styled.div`
-    background-color: #F2F2F2;
-    width: 375px;
     min-height: 667px;
-    margin: 0 auto;
+    margin: 100px auto;
     position: relative;
 `;
 const SCHistorico = styled.div`
