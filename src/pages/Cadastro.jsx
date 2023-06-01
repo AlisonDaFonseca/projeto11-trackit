@@ -22,9 +22,7 @@ export default function Cadastro() {
         const promise = axios.post(URL, novoUsuario);
 
         promise.then(resposta => navigate('/'));
-        promise.catch(erro => alert(erro.response.data.message))
-
-
+        promise.catch(erro => alert(erro.response.data.message));
         
     }
     function login(){

@@ -1,14 +1,34 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
+import { useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
+import axios from "axios";
 
 export default function Login() {
 
+    const {email, setEmail, setNome, password, setPassword, setId, setToken, setImagemPerfil} = useContext(UsuarioContext);
     const navigate = useNavigate();
 
     function logar(e){
         e.preventDefault();
-        navigate('/habitos');
+
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+
+        const loginUsuario = {password: password, email: email}
+
+        const promise = axios.post(URL, loginUsuario);
+
+        promise.then(resposta => {
+            setNome(resposta.data.name);
+            setImagemPerfil(resposta.data.image);
+            setId(resposta.data.id);
+            setToken(resposta.data.token);
+            navigate('/habitos');
+        });
+        promise.catch(erro => alert(erro.response.data.message));
+
+        
     }
     function cadastrar(){
         navigate('/cadastro');
@@ -19,8 +39,18 @@ export default function Login() {
         <SCContainerLogin>
             <img src={Logo} />
             <SCForm onSubmit={logar}>
-                <input type="email" placeholder="email" required/>
-                <input type="password" placeholder="senha" required/>
+                <input type="email" 
+                placeholder="email" 
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+                <input type="password"
+                placeholder="senha" 
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
                 <button>Entrar</button>
             </SCForm>
             <span onClick={cadastrar}>Não tem uma conta? Cadastre-se!</span>
