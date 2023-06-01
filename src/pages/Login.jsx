@@ -19,7 +19,7 @@ export default function Login() {
         <SCContainerLogin>
             <img src={Logo} />
             <SCForm onSubmit={logar}>
-                <input type="text" placeholder="email" required/>
+                <input type="email" placeholder="email" required/>
                 <input type="password" placeholder="senha" required/>
                 <button>Entrar</button>
             </SCForm>

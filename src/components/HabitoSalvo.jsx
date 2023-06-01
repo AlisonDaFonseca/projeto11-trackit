@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Excluir from "../assets/excluir.svg"
 
 export default function HabitoSalvo(){
-    const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+    const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     return(
         <SCCardSalvo>

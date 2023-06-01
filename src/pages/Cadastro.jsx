@@ -1,14 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
+import { useState } from "react";
+import axios from "axios";
 
 export default function Cadastro() {
+    const [imagemPerfil , setImagemPerfil] = useState('');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
 
     function cadastrar(e){
         e.preventDefault();
-        navigate('/');
+        
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
+
+        const novoUsuario = {email: email, name: nome, image: imagemPerfil, password: password};
+
+        const promise = axios.post(URL, novoUsuario);
+
+        promise.then(resposta => navigate('/'));
+        promise.catch(erro => alert(erro.response.data.message))
+
+
+        
     }
     function login(){
         navigate('/')
@@ -19,10 +36,26 @@ export default function Cadastro() {
         <SCContainerCadastro>
             <img src={Logo} />
             <SCForm onSubmit={cadastrar}>
-                <input placeholder="email" required/>
-                <input placeholder="senha" required/>
-                <input placeholder="nome" required/>
-                <input placeholder="foto" required/>
+                <input type="email" placeholder="email" 
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+                <input placeholder="senha" 
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                <input placeholder="nome" 
+                required
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                />
+                <input type="url" placeholder="foto" 
+                required
+                value={imagemPerfil}
+                onChange={(e) => setImagemPerfil(e.target.value)}
+                />
                 <button>Cadastrar</button>
             </SCForm>
             <span onClick={login}>Já tem uma conta? Faça login!</span>

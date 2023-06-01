@@ -1,11 +1,15 @@
 import Logo from "../assets/logo-pequeno.svg"
 import styled from "styled-components";
+import { useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
 
 export default function Topo(){
+    const {imagemPerfil} = useContext(UsuarioContext);
+
     return (
         <SCHeader>
                 <SCLogo src={Logo} alt="logo cabeçalho" />
-                <SCPerfil src="https://img.elo7.com.br/product/original/3E26D20/desenho-personalizado-para-perfil-desenho-personalizado.jpg" alt="perfil" />
+                <SCPerfil src={imagemPerfil} alt="perfil" />
         </SCHeader>
     );
 }

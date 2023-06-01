@@ -4,7 +4,7 @@ import Menu from "../components/Menu";
 import Add from "../assets/adicionar.png"
 import "react-circular-progressbar/dist/styles.css";
 
-import { useState } from "react";
+
 import CardHabito from "../components/CardHabito";
 
 export default function Habitos() {
