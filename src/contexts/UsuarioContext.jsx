@@ -9,11 +9,18 @@ export const UsuarioProvider = ({children}) => {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [id, setId] = useState('');
-
+    const [verificaCardVazio, setVerificaCardVazio] = useState(true);
+    const [listaHabitos, setListaHabitos] = useState([{id: 1, name: 'Ler livro', days: [1, 2, 3]}]);
+    
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
 
 
     return(
-        <UsuarioContext.Provider value={{imagemPerfil, setImagemPerfil, nome, setNome, email, setEmail, password, setPassword, token, setToken, id, setId}}>
+        <UsuarioContext.Provider value={{listaHabitos, setListaHabitos, imagemPerfil, setImagemPerfil, nome, setNome, verificaCardVazio, setVerificaCardVazio, email, setEmail, password, setPassword, config, setToken, id, setId}}>
             {children}
         </UsuarioContext.Provider>
     );

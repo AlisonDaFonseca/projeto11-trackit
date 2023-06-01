@@ -1,22 +1,53 @@
 import styled from "styled-components";
+import { useState, useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
+import Dia from "./Dia";
+import axios from "axios";
 
-export default function Habito({setCard}) {
+export default function Habito({setBtnAdicionar}) {
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+    const {verificaCardVazio, config, setVerificaCardVazio} = useContext(UsuarioContext);
+    const [nomeHabito, setNomeHabito] = useState('')
+    const [diasSelecionados, setDiasSelecionados] = useState([]);
+
+
+    function salvarHabito(e){
+        e.preventDefault();
+
+        const cadastrarHabito = {name: nomeHabito, days: diasSelecionados}
+
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+
+        const promise = axios.post(URL, cadastrarHabito, config)
+
+        promise.then((resposta) => console.log(resposta.data));
+        promise.catch((erro) => console.log(erro.responde.data.message))
+
+
+        setBtnAdicionar(false)
+        setVerificaCardVazio(verificaCardVazio === true && false)
+    }
+    
 
     return (
         <SCCardHabitos>
-            <div><input placeholder="nome de hábito" /></div>
+            <div><input 
+            placeholder="nome de hábito" 
+            required
+            value={nomeHabito}
+            onChange={(e) => setNomeHabito(e.target.value)}
+            /></div>
             <SCSelecaoDias>
-                {dias.map((dia, i) =>  <button key={i}>{dia}</button>)}   
+                {dias.map((dia, i) =>  <Dia key={i} dia={dia} diaNumero={i + 1} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>)}   
             </SCSelecaoDias>
             <SCBotaoCancelaSalva>
-                <SCBotao cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>
-                <SCBotao onClick={() => {setCard(true)}} cor="#FFFFFF" background="#52B6FF">Salvar</SCBotao>
+                <SCBotao  type="button" onClick={() => setBtnAdicionar(false)}cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>
+                <SCBotao onClick={salvarHabito} type="button" cor="#FFFFFF" background="#52B6FF">Salvar</SCBotao>
             </SCBotaoCancelaSalva>
         </SCCardHabitos>
     );
 }
-const SCCardHabitos = styled.div`
+const SCCardHabitos = styled.form`
     width: 340px;
     height: 180px;
     background: #FFFFFF;
@@ -53,14 +84,5 @@ const SCBotao = styled.button`
     cursor: pointer;
 `;
 const SCSelecaoDias = styled.div`
-     button{
-        width: 30px;
-        height: 30px;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
-        border-radius: 5px;
-        color: #D5D5D5;
-        margin-right: 5px;
-        margin-top: 5px;
-    }
+     
 `;

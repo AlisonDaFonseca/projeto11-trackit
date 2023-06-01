@@ -21,6 +21,9 @@ const SCHeader = styled.header`
     align-items: center;
     justify-content: space-between;
     height: 70px;
+    position: fixed;
+    width: 375px;
+    top: 0;
 `;
 const SCLogo = styled.img`
     width: 97px;

@@ -38,7 +38,7 @@ export default function Menu(){
 }
 
 const SCFooter = styled.footer`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: #FFFFFF;
     width: 375px;

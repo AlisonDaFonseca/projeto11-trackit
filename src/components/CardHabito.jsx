@@ -1,22 +1,23 @@
 import Habito from "../components/Habito";
 import HabitoSalvo from "../components/HabitoSalvo";
-import { useState } from "react";
+import { useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
 
-export default function CardHabito(){
-    const [card, setCard] = useState(false);
+
+export default function CardHabito({btnAdicionar, setBtnAdicionar}){
+
+    
+    const {listaHabitos} = useContext(UsuarioContext);
 
     return(
         <>
-        {card === false && 
+         {btnAdicionar === true && 
             <>
-                <Habito setCard={setCard}/>
-                <span>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</span>
+                <Habito setBtnAdicionar={setBtnAdicionar}/>
             </>
-            }
+            } 
 
-            {card === true &&
-                <HabitoSalvo />
-            }
-        </>
-    );
+        {listaHabitos.map((habito) => <HabitoSalvo key={habito.id} habito={habito}/>)} 
+       </> 
+    )
 }
