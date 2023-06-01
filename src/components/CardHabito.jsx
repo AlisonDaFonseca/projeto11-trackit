@@ -1,13 +1,29 @@
 import Habito from "../components/Habito";
 import HabitoSalvo from "../components/HabitoSalvo";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
+import axios from "axios";
 
 
 export default function CardHabito({btnAdicionar, setBtnAdicionar}){
 
+    const {config, setVerificaCardVazio, listaHabitos, setListaHabitos} = useContext(UsuarioContext);
+
+
+    useEffect(() => {
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+
+        const promise = axios.get(URL, config);
+        promise.then(resposta => {
+            setListaHabitos(resposta.data)
+            setVerificaCardVazio(false);
+            
+        })
+        promise.catch(erro => console.log(erro.response.data.message))
+
+    }, []);
     
-    const {listaHabitos} = useContext(UsuarioContext);
+   
 
     return(
         <>

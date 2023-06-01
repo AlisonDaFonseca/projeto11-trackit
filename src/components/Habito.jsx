@@ -38,7 +38,7 @@ export default function Habito({setBtnAdicionar}) {
             onChange={(e) => setNomeHabito(e.target.value)}
             /></div>
             <SCSelecaoDias>
-                {dias.map((dia, i) =>  <Dia key={i} dia={dia} diaNumero={i + 1} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>)}   
+                {dias.map((dia, i) =>  <Dia key={i} dia={dia} diaNumero={i} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>)}   
             </SCSelecaoDias>
             <SCBotaoCancelaSalva>
                 <SCBotao  type="button" onClick={() => setBtnAdicionar(false)}cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>

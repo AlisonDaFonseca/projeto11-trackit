@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Excluir from "../assets/excluir.svg"
-import { useContext } from "react";
-import { UsuarioContext } from "../contexts/UsuarioContext";
+import DiaSalvo from "./DiaSalvo";
 
 
 export default function HabitoSalvo({habito}) {
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-    const {setCardAdd} = useContext(UsuarioContext);
+   
+    
    
     
     return (
@@ -16,23 +16,14 @@ export default function HabitoSalvo({habito}) {
                 <img  src={Excluir} alt="Icone de excluir card" />
             </SCTopoCardSalvo>
             <SCSelecaoDias>
-                {dias.map((dia, i) => <button key={i}>{dia}</button>)}
+                {dias.map((dia, i) => <DiaSalvo habito={habito} key={i} diaNumero={i} dia={dia}/>)}
             </SCSelecaoDias>
         </SCCardSalvo>
     );
 }
 
 const SCSelecaoDias = styled.div`
-     button{
-        width: 30px;
-        height: 30px;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
-        border-radius: 5px;
-        color: #D5D5D5;
-        margin-right: 5px;
-        margin-top: 5px;
-    }
+  
 `;
 
 
