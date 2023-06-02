@@ -17,9 +17,13 @@ export default function Hoje() {
     dia = dia.replace('-feira', '');
     const diaN = hoje.format("DD");
     const mes = hoje.format("MM");
-
-    const {config, habitosHoje, setHabitosHoje} = useContext(UsuarioContext)
     
+
+   
+    const {config, habitosHoje, setHabitosHoje, setHabitosConcluidosHoje, habitosConluidosHoje} = useContext(UsuarioContext)
+    const porcentagem = Math.floor(habitosConluidosHoje * 100 / habitosHoje.length);
+
+
     useEffect(() => {
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
 
@@ -27,10 +31,18 @@ export default function Hoje() {
 
         promise.then(resposta => {
             setHabitosHoje(resposta.data);
+            let contador = 0;
+            resposta.data.map(resposta => {
+                if(resposta.done == true){
+                    contador = contador + 1;
+                }    
+            })
+           
+            setHabitosConcluidosHoje(contador)
         });
+        
         promise.catch(erro => console.log(erro.response.data.message));
     }, []);
-    
     
     
     return (
@@ -38,7 +50,12 @@ export default function Hoje() {
             <Topo />
             <SCTitulo>
                 <h1>{dia}, {diaN}/{mes}</h1>
-                <span>Nenhum hábido concluído ainda</span>
+                {habitosConluidosHoje === 0 &&
+                    <span>Nenhum hábito concluído ainda</span>
+                }  
+                {habitosConluidosHoje!== 0 &&
+                    <SCCorConcluido>{porcentagem}% dos hábitos concluídos</SCCorConcluido>
+                } 
             </SCTitulo>
             {habitosHoje.map((habito) => <HabitoHoje key={habito.id} habito={habito}/>)  }
             <Menu />
@@ -63,4 +80,7 @@ const SCContainerHoje = styled.div`
     min-height: 667px;
     position: relative;
     margin: 100px 0;
+`;
+const SCCorConcluido = styled.span`
+    color: #8FC549;
 `;

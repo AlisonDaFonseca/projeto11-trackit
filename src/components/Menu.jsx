@@ -1,9 +1,15 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
 
 export default function Menu(){
     const navigate = useNavigate();
+    const {habitosHoje, habitosConluidosHoje} = useContext(UsuarioContext);
+    const porcentagem = Math.floor(habitosConluidosHoje * 100 / habitosHoje.length);
+   
+  
 
     function rotaHoje(){
         navigate('/hoje');
@@ -20,7 +26,7 @@ export default function Menu(){
                 <span onClick={rotaHabitos}>Hábitos</span>
                 <SCBarraProgresso onClick={rotaHoje}>
                     <CircularProgressbar
-                        value={66}
+                        value={porcentagem}
                         text={'Hoje'}
                         background
                         backgroundPadding={6}

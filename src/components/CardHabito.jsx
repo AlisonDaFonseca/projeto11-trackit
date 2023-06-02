@@ -7,8 +7,9 @@ import axios from "axios";
 
 export default function CardHabito({btnAdicionar, setBtnAdicionar}){
 
-    const {config, setVerificaCardVazio, listaHabitos, setListaHabitos} = useContext(UsuarioContext);
+    const {config, setVerificaCardVazio, atualizaTelaHabitos, atualizaTela, listaHabitos, setListaHabitos} = useContext(UsuarioContext);
 
+    
 
     useEffect(() => {
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
@@ -17,6 +18,8 @@ export default function CardHabito({btnAdicionar, setBtnAdicionar}){
         promise.then(resposta => {
             setListaHabitos(resposta.data)
             setVerificaCardVazio(false);
+            atualizaTelaHabitos();
+            atualizaTela();
         })
         promise.catch(erro => console.log(erro.response.data.message))
 

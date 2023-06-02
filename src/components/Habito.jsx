@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function Habito({setBtnAdicionar}) {
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-    const {verificaCardVazio, config, setVerificaCardVazio} = useContext(UsuarioContext);
+    const {verificaCardVazio, atualizaTela, atualizaTelaHabitos, config, setVerificaCardVazio} = useContext(UsuarioContext);
     const [nomeHabito, setNomeHabito] = useState('')
     const [diasSelecionados, setDiasSelecionados] = useState([]);
 
@@ -22,6 +22,9 @@ export default function Habito({setBtnAdicionar}) {
 
         promise.then((resposta) => {
             console.log(resposta.data);
+            atualizaTela();
+            atualizaTelaHabitos();
+
         });
         promise.catch((erro) => console.log(erro.responde.data.message))
 

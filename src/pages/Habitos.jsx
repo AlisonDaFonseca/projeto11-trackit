@@ -8,7 +8,7 @@ import { UsuarioContext } from "../contexts/UsuarioContext";
 import CardHabito from "../components/CardHabito";
 
 export default function Habitos() {
-    const {verificaCardVazio} = useContext(UsuarioContext);
+    const {listaHabitos} = useContext(UsuarioContext);
     const [btnAdicionar, setBtnAdicionar] = useState(false);
 
 
@@ -21,7 +21,7 @@ export default function Habitos() {
                     <img onClick={() => setBtnAdicionar(true)} src={Add} alt="botão adicionar" />
                 </SCAdicionarHabito>
                 <CardHabito btnAdicionar={btnAdicionar} setBtnAdicionar={setBtnAdicionar}/>
-                {verificaCardVazio === true &&
+                {listaHabitos.length === 0 &&
                 <span>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</span>
                 }
             </SCMain>

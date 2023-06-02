@@ -11,7 +11,8 @@ export const UsuarioProvider = ({children}) => {
     const [verificaCardVazio, setVerificaCardVazio] = useState(true);
     const [listaHabitos, setListaHabitos] = useState([]);
     const [habitosHoje, setHabitosHoje] = useState([])
-    
+    const [habitosConluidosHoje, setHabitosConcluidosHoje] = useState(0);
+
     const config = {
         headers: {
             Authorization: `Bearer ${localStorage.token}`
@@ -25,6 +26,13 @@ export const UsuarioProvider = ({children}) => {
 
         promise.then(resposta => {
             setHabitosHoje(resposta.data);
+            let contador = 0;
+            resposta.data.map(resposta => {
+                if(resposta.done == true){
+                    contador = contador + 1;
+                }    
+            })
+            setHabitosConcluidosHoje(contador)
         });
         promise.catch(erro => console.log(erro.response.data.message));
     }
@@ -40,7 +48,7 @@ export const UsuarioProvider = ({children}) => {
     }
 
     return(
-        <UsuarioContext.Provider value={{atualizaTela, atualizaTelaHabitos, habitosHoje, setHabitosHoje, listaHabitos, setListaHabitos, nome, setNome, verificaCardVazio, setVerificaCardVazio, email, setEmail, password, setPassword, config, id, setId}}>
+        <UsuarioContext.Provider value={{habitosConluidosHoje, setHabitosConcluidosHoje, atualizaTela, atualizaTelaHabitos, habitosHoje, setHabitosHoje, listaHabitos, setListaHabitos, nome, setNome, verificaCardVazio, setVerificaCardVazio, email, setEmail, password, setPassword, config, id, setId}}>
             {children}
         </UsuarioContext.Provider>
     );

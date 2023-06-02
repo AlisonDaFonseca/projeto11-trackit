@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Login() {
 
-    const {email, setEmail, setNome, password, setPassword, setId} = useContext(UsuarioContext);
+    const {email, setEmail, setNome, password, setPassword, setId, atualizaTelaHabitos} = useContext(UsuarioContext);
     const navigate = useNavigate();
 
     function logar(e){
@@ -25,6 +25,7 @@ export default function Login() {
             navigate('/habitos');
             localStorage.token = resposta.data.token;
             localStorage.imagem = resposta.data.image;
+            atualizaTelaHabitos();
         });
         promise.catch(erro => alert(erro.response.data.message));
 
