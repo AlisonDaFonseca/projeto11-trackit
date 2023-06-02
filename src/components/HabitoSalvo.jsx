@@ -9,7 +9,7 @@ import axios from "axios";
 export default function HabitoSalvo({habito}) {
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
-    const {config} = useContext(UsuarioContext);
+    const {config, atualizaTelaHabitos} = useContext(UsuarioContext);
    
     
    function excluirHabito(){
@@ -19,7 +19,10 @@ export default function HabitoSalvo({habito}) {
 
         const promise = axios.delete(URL, config);
     
-        promise.then(() => alert('Hábito deletado'));
+        promise.then(() => {
+            alert('Hábito deletado')
+            atualizaTelaHabitos();
+        });
         promise.catch(erro => console.log(erro.response.data.message))
     }
  

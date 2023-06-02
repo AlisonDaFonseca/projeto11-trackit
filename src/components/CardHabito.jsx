@@ -17,11 +17,10 @@ export default function CardHabito({btnAdicionar, setBtnAdicionar}){
         promise.then(resposta => {
             setListaHabitos(resposta.data)
             setVerificaCardVazio(false);
-            
         })
         promise.catch(erro => console.log(erro.response.data.message))
 
-    }, []);
+    }, [btnAdicionar]);
     
    
 

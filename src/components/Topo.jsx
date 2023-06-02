@@ -9,7 +9,7 @@ export default function Topo(){
     return (
         <SCHeader>
                 <SCLogo src={Logo} alt="logo cabeçalho" />
-                <SCPerfil src={imagemPerfil} alt="perfil" />
+                <SCPerfil src={localStorage.imagem} alt="perfil" />
         </SCHeader>
     );
 }

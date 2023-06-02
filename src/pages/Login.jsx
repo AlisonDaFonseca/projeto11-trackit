@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Login() {
 
-    const {email, setEmail, setNome, password, setPassword, setId, setToken, setImagemPerfil} = useContext(UsuarioContext);
+    const {email, setEmail, setNome, password, setPassword, setId} = useContext(UsuarioContext);
     const navigate = useNavigate();
 
     function logar(e){
@@ -21,10 +21,10 @@ export default function Login() {
 
         promise.then(resposta => {
             setNome(resposta.data.name);
-            setImagemPerfil(resposta.data.image);
             setId(resposta.data.id);
-            setToken(resposta.data.token);
             navigate('/habitos');
+            localStorage.token = resposta.data.token;
+            localStorage.imagem = resposta.data.image;
         });
         promise.catch(erro => alert(erro.response.data.message));
 

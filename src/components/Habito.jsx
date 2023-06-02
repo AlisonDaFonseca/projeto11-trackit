@@ -20,7 +20,9 @@ export default function Habito({setBtnAdicionar}) {
 
         const promise = axios.post(URL, cadastrarHabito, config)
 
-        promise.then((resposta) => console.log(resposta.data));
+        promise.then((resposta) => {
+            console.log(resposta.data);
+        });
         promise.catch((erro) => console.log(erro.responde.data.message))
 
 

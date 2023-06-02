@@ -18,16 +18,16 @@ export default function Hoje() {
     const diaN = hoje.format("DD");
     const mes = hoje.format("MM");
 
-    const [habitosHoje, setHabitosHoje] = useState([])
-
-    const {config} = useContext(UsuarioContext)
+    const {config, habitosHoje, setHabitosHoje} = useContext(UsuarioContext)
     
     useEffect(() => {
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
 
         const promise = axios.get(URL, config);
 
-        promise.then(resposta => setHabitosHoje(resposta.data));
+        promise.then(resposta => {
+            setHabitosHoje(resposta.data);
+        });
         promise.catch(erro => console.log(erro.response.data.message));
     }, []);
     
