@@ -67,8 +67,8 @@ export default function HabitoHoje({ habito }) {
             <SCCardHabito data-test="today-habit-container"  cor={habito.done === true ? '#8FC549' : '#EBEBEB'}>
                 <SCTexto>
                     <h1  data-test="today-habit-name" >{habito.name}</h1>
-                    <h2 data-test="today-habit-sequence" >Sequencia atual: <SCSequenciaAtual data-test="today-habit-sequence" cor={seqAtual}>{habito.currentSequence} dias</SCSequenciaAtual> </h2>
-                    <h2  data-test="today-habit-record">Seu recorde: <SCSequenciaRecorde data-test="today-habit-record" cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
+                    <h2>Sequencia atual: <SCSequenciaAtual data-test="today-habit-sequence" cor={seqAtual}>{habito.currentSequence} dias</SCSequenciaAtual> </h2>
+                    <h2>Seu recorde: <SCSequenciaRecorde data-test="today-habit-record" cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
                 </SCTexto>
                 <IoCheckbox data-test="today-habit-check-btn" onClick={marcaDesmarca} />
             </SCCardHabito>
