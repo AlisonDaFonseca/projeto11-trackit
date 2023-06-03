@@ -30,7 +30,7 @@ export default function CardHabito({btnAdicionar, setBtnAdicionar}){
         <>
          {btnAdicionar === true && 
             <>
-                <Habito data-test="habit-create-container" setBtnAdicionar={setBtnAdicionar}/>
+                <Habito setBtnAdicionar={setBtnAdicionar}/>
             </>
             } 
 

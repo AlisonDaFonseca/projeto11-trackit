@@ -41,7 +41,7 @@ export default function Habito({ setBtnAdicionar }) {
 console.log(nomeHabito)
 
     return (
-        <SCCardHabitos>
+        <SCCardHabitos data-test="habit-create-container">
             <div><input data-test="habit-name-input" 
                 placeholder="nome de hábito"
                 required
