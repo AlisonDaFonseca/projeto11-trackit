@@ -1,15 +1,25 @@
 import Logo from "../assets/logo-pequeno.svg"
 import styled from "styled-components";
-import { useContext } from "react";
-import { UsuarioContext } from "../contexts/UsuarioContext";
+import { IoLogOutOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function Topo(){
-    const {imagemPerfil} = useContext(UsuarioContext);
+
+    const navigate = useNavigate();
+
+
+   
 
     return (
-        <SCHeader>
-                <SCLogo src={Logo} alt="logo cabeçalho" />
-                <SCPerfil src={localStorage.imagem} alt="perfil" />
+        <SCHeader data-test="header">
+                <SCLogo  src={Logo} alt="logo cabeçalho" />
+                <SCPerfilELogout>
+                    <IoLogOutOutline onClick={() => {
+                    localStorage.clear();
+                    navigate('/');
+                }}/>
+                    <SCPerfil data-test="avatar" src={localStorage.imagem} alt="perfil" />
+                </SCPerfilELogout>   
         </SCHeader>
     );
 }
@@ -29,7 +39,18 @@ const SCLogo = styled.img`
     width: 97px;
     height: 49px;
     margin-left: 10px;
-`
+`;
+const SCPerfilELogout = styled.div`
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    svg{
+        color: #f7eeee;
+        font-size: 30px;
+        cursor: pointer;
+    }
+`;
 const SCPerfil = styled.img`
     width: 51px;
     height: 51px;

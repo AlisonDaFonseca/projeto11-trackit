@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const diasEscolhidos = [];
 
-export default function Dia({dia, diaNumero, setDiasSelecionados}){
+export default function Dia({dia, diaNumero, setDiasSelecionados, disabled}){
     const [selecionado, setSelecionado] = useState(false);
 
 
@@ -22,7 +22,7 @@ export default function Dia({dia, diaNumero, setDiasSelecionados}){
     }
 
     return(
-        <SCBotaoDia type="button" cor={selecionado} onClick={escolherDia}>{dia}</SCBotaoDia>
+        <SCBotaoDia data-test="habit-day" disabled={disabled} type="button" cor={selecionado} onClick={escolherDia}>{dia}</SCBotaoDia>
     );
 }
 
@@ -36,4 +36,5 @@ const SCBotaoDia = styled.button`
     color: ${props => props.cor === false ? '#D5D5D5' : '#FFFFFF'};
     margin-right: 5px;
     margin-top: 5px;
+    cursor: pointer;
 `;

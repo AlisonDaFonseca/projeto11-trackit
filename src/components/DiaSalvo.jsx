@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function DiaSalvo({dia, habito, diaNumero}){
   
     return(
-        <SCBotaoDia type="button" cor={habito.days.includes(diaNumero)} >{dia}</SCBotaoDia>
+        <SCBotaoDia data-test="habit-day"  type="button" cor={habito.days.includes(diaNumero)} >{dia}</SCBotaoDia>
     );
 }
 const SCBotaoDia = styled.button`

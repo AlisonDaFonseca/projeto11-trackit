@@ -1,21 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner"
 
 export default function Login() {
 
-    const {email, setEmail, setNome, password, setPassword, setId, atualizaTelaHabitos} = useContext(UsuarioContext);
+    const { email, setEmail, setNome, password, setPassword, setId} = useContext(UsuarioContext);
     const navigate = useNavigate();
+    const [carregando, setCarregando] = useState(false);
 
-    function logar(e){
+    function logar(e) {
         e.preventDefault();
+        setCarregando(true);
 
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
 
-        const loginUsuario = {password: password, email: email}
+        const loginUsuario = { password: password, email: email }
 
         const promise = axios.post(URL, loginUsuario);
 
@@ -25,13 +28,18 @@ export default function Login() {
             navigate('/habitos');
             localStorage.token = resposta.data.token;
             localStorage.imagem = resposta.data.image;
-            atualizaTelaHabitos();
+            setCarregando(false);
         });
-        promise.catch(erro => alert(erro.response.data.message));
+        promise.catch(erro => {
+            alert(erro.response.data.message)
+            setCarregando(false);
+        });
 
-        
+
     }
-    function cadastrar(){
+
+
+    function cadastrar() {
         navigate('/cadastro');
     }
 
@@ -40,21 +48,46 @@ export default function Login() {
         <SCContainerLogin>
             <img src={Logo} />
             <SCForm onSubmit={logar}>
-                <input type="email" 
-                placeholder="email" 
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                <input data-test="email-input" type="email"
+                    placeholder="email"
+                    required
+                    disabled={carregando}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
-                <input type="password"
-                placeholder="senha" 
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                <input data-test="password-input" type="password"
+                    placeholder="senha"
+                    required
+                    disabled={carregando}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
-                <button>Entrar</button>
+
+                {carregando === false &&
+                    <button data-test="login-btn" disabled={carregando}>
+                        Entrar
+                    </button>
+                }
+
+
+                {carregando === true &&
+                    <button data-test="login-btn" disabled={carregando}>
+                        <ThreeDots
+                            height="80"
+                            width="80"
+                            radius="9"
+                            color="#FFFFFF"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true} ba
+                        />
+                    </button>
+
+                }
+
             </SCForm>
-            <span onClick={cadastrar}>Não tem uma conta? Cadastre-se!</span>
+            <span data-test="signup-link" onClick={cadastrar}>Não tem uma conta? Cadastre-se!</span>
         </SCContainerLogin>
     );
 }
@@ -97,6 +130,9 @@ const SCForm = styled.form`
         border-radius: 5px;
         color: #FFFFFF;
         font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-bottom: 30px;
         cursor: pointer;
     }

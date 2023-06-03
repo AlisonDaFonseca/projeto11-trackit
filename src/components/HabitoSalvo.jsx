@@ -29,10 +29,10 @@ export default function HabitoSalvo({habito}) {
    }
     
     return (
-        <SCCardSalvo>
+        <SCCardSalvo data-test="habit-container" >
             <SCTopoCardSalvo>
-                <span>{habito.name}</span>
-                <img  onClick={excluirHabito} src={Excluir} alt="Icone de excluir card" />
+                <span data-test="habit-name">{habito.name}</span>
+                <img  data-test="habit-delete-btn"  onClick={excluirHabito} src={Excluir} alt="Icone de excluir card" />
             </SCTopoCardSalvo>
             <SCSelecaoDias>
                 {dias.map((dia, i) => <DiaSalvo habito={habito} key={i} diaNumero={i} dia={dia}/>)}

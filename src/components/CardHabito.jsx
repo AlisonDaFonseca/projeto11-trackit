@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function CardHabito({btnAdicionar, setBtnAdicionar}){
 
-    const {config, setVerificaCardVazio, atualizaTelaHabitos, atualizaTela, listaHabitos, setListaHabitos} = useContext(UsuarioContext);
+    const {config, atualizaTelaHabitos, atualizaTela, listaHabitos, setListaHabitos} = useContext(UsuarioContext);
 
     
 
@@ -17,7 +17,6 @@ export default function CardHabito({btnAdicionar, setBtnAdicionar}){
         const promise = axios.get(URL, config);
         promise.then(resposta => {
             setListaHabitos(resposta.data)
-            setVerificaCardVazio(false);
             atualizaTelaHabitos();
             atualizaTela();
         })
@@ -31,7 +30,7 @@ export default function CardHabito({btnAdicionar, setBtnAdicionar}){
         <>
          {btnAdicionar === true && 
             <>
-                <Habito setBtnAdicionar={setBtnAdicionar}/>
+                <Habito data-test="habit-create-container" setBtnAdicionar={setBtnAdicionar}/>
             </>
             } 
 

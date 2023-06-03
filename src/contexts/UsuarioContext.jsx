@@ -8,7 +8,6 @@ export const UsuarioProvider = ({children}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [id, setId] = useState('');
-    const [verificaCardVazio, setVerificaCardVazio] = useState(true);
     const [listaHabitos, setListaHabitos] = useState([]);
     const [habitosHoje, setHabitosHoje] = useState([])
     const [habitosConluidosHoje, setHabitosConcluidosHoje] = useState(0);
@@ -42,13 +41,12 @@ export const UsuarioProvider = ({children}) => {
         const promise = axios.get(URL, config);
         promise.then(resposta => {
             setListaHabitos(resposta.data)
-            setVerificaCardVazio(false);
         })
         promise.catch(erro => console.log(erro.response.data.message))
     }
 
     return(
-        <UsuarioContext.Provider value={{habitosConluidosHoje, setHabitosConcluidosHoje, atualizaTela, atualizaTelaHabitos, habitosHoje, setHabitosHoje, listaHabitos, setListaHabitos, nome, setNome, verificaCardVazio, setVerificaCardVazio, email, setEmail, password, setPassword, config, id, setId}}>
+        <UsuarioContext.Provider value={{habitosConluidosHoje, setHabitosConcluidosHoje, atualizaTela, atualizaTelaHabitos, habitosHoje, setHabitosHoje, listaHabitos, setListaHabitos, nome, setNome, email, setEmail, password, setPassword, config, id, setId}}>
             {children}
         </UsuarioContext.Provider>
     );

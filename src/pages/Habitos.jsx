@@ -18,7 +18,7 @@ export default function Habitos() {
             <SCMain>
                 <SCAdicionarHabito>
                     <h1>Meus hábitos</h1>
-                    <img onClick={() => setBtnAdicionar(true)} src={Add} alt="botão adicionar" />
+                    <img data-test="habit-create-btn" onClick={() => setBtnAdicionar(true)} src={Add} alt="botão adicionar" />
                 </SCAdicionarHabito>
                 <CardHabito btnAdicionar={btnAdicionar} setBtnAdicionar={setBtnAdicionar}/>
                 {listaHabitos.length === 0 &&

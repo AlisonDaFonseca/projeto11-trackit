@@ -64,13 +64,13 @@ export default function HabitoHoje({ habito }) {
     }
     return (
         <>
-            <SCCardHabito cor={habito.done === true ? '#8FC549' : '#E7E7E7'}>
+            <SCCardHabito data-test="today-habit-container"  cor={habito.done === true ? '#8FC549' : '#E7E7E7'}>
                 <SCTexto>
-                    <h1>{habito.name}</h1>
-                    <h2 >Sequencia atual: <SCSequenciaAtual cor={seqAtual}>{habito.currentSequence} dias</SCSequenciaAtual> </h2>
-                    <h2>Seu recorde: <SCSequenciaRecorde cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
+                    <h1  data-test="today-habit-name" >{habito.name}</h1>
+                    <h2 data-test="today-habit-sequence" >Sequencia atual: <SCSequenciaAtual cor={seqAtual}>{habito.currentSequence} dias</SCSequenciaAtual> </h2>
+                    <h2  data-test="today-habit-record">Seu recorde: <SCSequenciaRecorde cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
                 </SCTexto>
-                <IoCheckbox onClick={marcaDesmarca} />
+                <IoCheckbox data-test="today-habit-check-btn" onClick={marcaDesmarca} />
             </SCCardHabito>
         </>
     );
@@ -97,6 +97,7 @@ const SCCardHabito = styled.div`
         color: ${props => { return props.cor }};
         width: 69px;
         height: 69px;
+        cursor: pointer;
     }
 `;
 const SCTexto = styled.div`

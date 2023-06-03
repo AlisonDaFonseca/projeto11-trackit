@@ -22,9 +22,9 @@ export default function Menu(){
     }
 
     return(
-        <SCFooter>
-                <span onClick={rotaHabitos}>Hábitos</span>
-                <SCBarraProgresso onClick={rotaHoje}>
+        <SCFooter data-test="menu">
+                <span data-test="habit-link" onClick={rotaHabitos}>Hábitos</span>
+                <SCBarraProgresso  data-test="today-link" onClick={rotaHoje}>
                     <CircularProgressbar
                         value={porcentagem}
                         text={'Hoje'}
@@ -38,7 +38,7 @@ export default function Menu(){
                         })}
                     />
                 </SCBarraProgresso>
-                <span onClick={rotaHistorico}>Histórico</span>
+                <span data-test="history-link" onClick={rotaHistorico}>Histórico</span>
             </SCFooter>
     );
 }

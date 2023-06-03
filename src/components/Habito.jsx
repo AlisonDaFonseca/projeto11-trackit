@@ -3,18 +3,21 @@ import { useState, useContext } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
 import Dia from "./Dia";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner"
 
-export default function Habito({setBtnAdicionar}) {
+export default function Habito({ setBtnAdicionar }) {
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-    const {verificaCardVazio, atualizaTela, atualizaTelaHabitos, config, setVerificaCardVazio} = useContext(UsuarioContext);
+    const { atualizaTela, atualizaTelaHabitos, config } = useContext(UsuarioContext);
     const [nomeHabito, setNomeHabito] = useState('')
     const [diasSelecionados, setDiasSelecionados] = useState([]);
+    const [carregando, setCarregando] = useState(false);
 
 
-    function salvarHabito(e){
+    function salvarHabito(e) {
         e.preventDefault();
+        setCarregando(true)
 
-        const cadastrarHabito = {name: nomeHabito, days: diasSelecionados}
+        const cadastrarHabito = { name: nomeHabito, days: diasSelecionados }
 
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
@@ -24,30 +27,58 @@ export default function Habito({setBtnAdicionar}) {
             console.log(resposta.data);
             atualizaTela();
             atualizaTelaHabitos();
-
+            setBtnAdicionar(false);
+            setCarregando(false);
         });
-        promise.catch((erro) => console.log(erro.responde.data.message))
+        promise.catch((erro) => {
+            alert(erro.response.data.message);
+            setCarregando(false);
+        })
 
 
-        setBtnAdicionar(false)
-        setVerificaCardVazio(verificaCardVazio === true && false)
+        
     }
-    
+console.log(nomeHabito)
 
     return (
         <SCCardHabitos>
-            <div><input 
-            placeholder="nome de hábito" 
-            required
-            value={nomeHabito}
-            onChange={(e) => setNomeHabito(e.target.value)}
+            <div><input data-test="habit-name-input" 
+                placeholder="nome de hábito"
+                required
+                disabled={carregando}
+                value={nomeHabito}
+                onChange={(e) => setNomeHabito(e.target.value)}
             /></div>
             <SCSelecaoDias>
-                {dias.map((dia, i) =>  <Dia key={i} dia={dia} diaNumero={i} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>)}   
+                {dias.map((dia, i) => <Dia disabled={carregando} key={i} dia={dia} diaNumero={i} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados} />)}
             </SCSelecaoDias>
             <SCBotaoCancelaSalva>
-                <SCBotao  type="button" onClick={() => setBtnAdicionar(false)}cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>
-                <SCBotao onClick={salvarHabito} type="button" cor="#FFFFFF" background="#52B6FF">Salvar</SCBotao>
+                <SCBotao data-test="habit-create-cancel-btn" 
+                type="button" onClick={() => {
+                    localStorage.hab = nomeHabito;
+                    setBtnAdicionar(false);
+                    setNomeHabito(localStorage.hab);
+                    console.log(localStorage.hab)
+                    }} cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>
+                {carregando === false &&
+                    <SCBotao data-test="habit-create-save-btn" disabled={carregando} onClick={salvarHabito} type="button" cor="#FFFFFF" background="#52B6FF">Salvar</SCBotao>
+                }
+                {carregando === true &&
+                    <SCBotao data-test="habit-create-save-btn" disabled={carregando} onClick={salvarHabito} type="button" cor="#FFFFFF" background="#52B6FF">
+                         <ThreeDots
+                            height="80"
+                            width="80"
+                            radius="9"
+                            color="#FFFFFF"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true} ba
+                        />
+                    </SCBotao>
+                }
+
+
             </SCBotaoCancelaSalva>
         </SCCardHabitos>
     );
@@ -86,6 +117,9 @@ const SCBotao = styled.button`
     background-color: ${(props) => { return props.background }};
     border-radius: 4px;
     margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 `;
 const SCSelecaoDias = styled.div`
