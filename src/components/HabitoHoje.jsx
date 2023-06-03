@@ -24,18 +24,15 @@ export default function HabitoHoje({ habito }) {
             if (habito.currentSequence === habito.highestSequence) {
                 setSeqRec('#8FC549');
             }
-            console.log(contador)
-            console.log(habito.currentSequence)
-            console.log(habito.highestSequence)
         }
         if (habito.done === true) {
             const contador = habito.currentSequence - 1;
-            if (habito.currentSequence < habito.highestSequence || contador > habito.highestSequence) {
+            if (habito.currentSequence !== habito.highestSequence) {
                 setSeqRec('#666666');
             }
             if (contador === 0) {
-                setSeqRec('#666666');
                 setSeqAtual('#666666');
+                setSeqRec('#666666');
             }
         }
 
