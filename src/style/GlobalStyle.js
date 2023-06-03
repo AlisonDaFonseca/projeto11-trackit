@@ -36,6 +36,8 @@ body {
 	width:375px;
 	margin: 0 auto;
 	background-color: #F2F2F2;
+	font-family: 'Lexend Deca', sans-serif;
+	color: #666666;
 }
 ol, ul {
 	list-style: none;
