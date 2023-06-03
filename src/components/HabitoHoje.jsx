@@ -12,8 +12,8 @@ import axios from "axios";
 export default function HabitoHoje({ habito }) {
 
     const { config, atualizaTela } = useContext(UsuarioContext);
-    const [seqAtual, setSeqAtual] = useState((habito.done === true || habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
-    const [seqRec, setSeqRec] = useState((habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
+    const [seqAtual, setSeqAtual] = useState((habito.done === true || (habito.currentSequence === habito.highestSequence && habito.currentSequence > 0)) ? '#8FC549' : '#666666')
+    const [seqRec, setSeqRec] = useState((habito.currentSequence !== habito.highestSequence || habito.currentSequence <= 0) ? '#666666' : '#8FC549' );
    
 
     function verificaSequencia() {
