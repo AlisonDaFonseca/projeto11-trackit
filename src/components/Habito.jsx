@@ -54,11 +54,8 @@ console.log(nomeHabito)
             </SCSelecaoDias>
             <SCBotaoCancelaSalva>
                 <SCBotao data-test="habit-create-cancel-btn" 
-                type="button" onClick={() => {
-                    localStorage.hab = nomeHabito;
+                type="button" disabled={carregando} onClick={() => {
                     setBtnAdicionar(false);
-                    setNomeHabito(localStorage.hab);
-                    console.log(localStorage.hab)
                     }} cor="#52B6FF" background="#FFFFFF">Cancelar</SCBotao>
                 {carregando === false &&
                     <SCBotao data-test="habit-create-save-btn" disabled={carregando} onClick={salvarHabito} type="button" cor="#FFFFFF" background="#52B6FF">Salvar</SCBotao>
