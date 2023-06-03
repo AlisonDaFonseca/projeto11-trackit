@@ -11,7 +11,7 @@ import axios from "axios";
 
 export default function HabitoHoje({ habito }) {
 
-    const { config, atualizaTela} = useContext(UsuarioContext);
+    const { config, atualizaTela } = useContext(UsuarioContext);
     const [seqAtual, setSeqAtual] = useState((habito.currentSequence > 0 && habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
     const [seqRec, setSeqRec] = useState((habito.currentSequence === habito.highestSequence && habito.currentSequence !== 0) ? '#8FC549' : '#666666')
 
@@ -22,14 +22,20 @@ export default function HabitoHoje({ habito }) {
                 setSeqAtual('#8FC549');
             }
             if (habito.currentSequence === habito.highestSequence) {
-                setSeqRec('#8FC549')
+                setSeqRec('#8FC549');
             }
+            console.log(contador)
+            console.log(habito.currentSequence)
+            console.log(habito.highestSequence)
         }
         if (habito.done === true) {
             const contador = habito.currentSequence - 1;
-            setSeqAtual('#666666')
-            if (contador !== habito.highestSequence) {
-                setSeqRec('#666666')
+            if (habito.currentSequence < habito.highestSequence || contador > habito.highestSequence) {
+                setSeqRec('#666666');
+            }
+            if (contador === 0) {
+                setSeqRec('#666666');
+                setSeqAtual('#666666');
             }
         }
 
@@ -64,11 +70,11 @@ export default function HabitoHoje({ habito }) {
     }
     return (
         <>
-            <SCCardHabito data-test="today-habit-container"  cor={habito.done === true ? '#8FC549' : '#EBEBEB'}>
+            <SCCardHabito data-test="today-habit-container" cor={habito.done === true ? '#8FC549' : '#EBEBEB'}>
                 <SCTexto>
-                    <h1  data-test="today-habit-name" >{habito.name}</h1>
+                    <h1 data-test="today-habit-name" >{habito.name}</h1>
                     <h2>Sequencia atual: <SCSequenciaAtual data-test="today-habit-sequence" cor={seqAtual}>{habito.currentSequence} dias</SCSequenciaAtual> </h2>
-                    <h2>Seu recorde: <SCSequenciaRecorde data-test="today-habit-record" cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
+                    <h2 >Seu recorde: <SCSequenciaRecorde data-test="today-habit-record" cor={seqRec}>{habito.highestSequence} dias</SCSequenciaRecorde></h2>
                 </SCTexto>
                 <IoCheckbox data-test="today-habit-check-btn" onClick={marcaDesmarca} />
             </SCCardHabito>
