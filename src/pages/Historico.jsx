@@ -1,8 +1,6 @@
 import Topo from "../components/Topo";
 import Menu from "../components/Menu";
 import styled from "styled-components";
-import Calendar from "react-calendar";
-import  'react-calendar/dist/Calendar.css' ;
 
 export default function Historico(){
     return(
@@ -10,8 +8,7 @@ export default function Historico(){
             <Topo />
             <SCHistorico>
                 <h1>Histórico</h1>
-                <Calendar />
-
+                <span>Em breve você poderá ver o histórico dos seus hábitos aqui!</span>
             </SCHistorico>
             <Menu />
         </SCContainerHistorico>

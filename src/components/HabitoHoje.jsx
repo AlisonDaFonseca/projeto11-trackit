@@ -12,8 +12,8 @@ import axios from "axios";
 export default function HabitoHoje({ habito }) {
 
     const { config, atualizaTela } = useContext(UsuarioContext);
-    const [seqAtual, setSeqAtual] = useState((habito.currentSequence > 0 && habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
-    const [seqRec, setSeqRec] = useState((habito.currentSequence === habito.highestSequence && habito.currentSequence > 0) ? '#8FC549' : '#666666')
+    const [seqAtual, setSeqAtual] = useState((habito.done === true || habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
+    const [seqRec, setSeqRec] = useState((habito.currentSequence === habito.highestSequence) ? '#8FC549' : '#666666')
    
 
     function verificaSequencia() {
@@ -28,13 +28,15 @@ export default function HabitoHoje({ habito }) {
         }
         if (habito.done === true) {
             const contador = habito.currentSequence - 1;
+            if (contador === 0) {
+                setSeqRec('#666666');
+                setSeqAtual('#666666');
+            }
             if (habito.currentSequence !== habito.highestSequence) {
                 setSeqRec('#666666');
-            }
-            if (contador === 0) {
                 setSeqAtual('#666666');
-                setSeqRec('#666666');
             }
+            
         }
 
     }
@@ -64,7 +66,7 @@ export default function HabitoHoje({ habito }) {
         }
 
 
-
+       // habito.highestSequence
     }
     return (
         <>
