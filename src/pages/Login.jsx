@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg"
 import styled from "styled-components"
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner"
@@ -11,7 +11,15 @@ export default function Login() {
     const { email, setEmail, setNome, password, setPassword, setId} = useContext(UsuarioContext);
     const navigate = useNavigate();
     const [carregando, setCarregando] = useState(false);
+    
+    useEffect(() => {
+      if(localStorage.length !== 0){
+        navigate('/hoje');
+      }
 
+    }, []);
+
+    
     function logar(e) {
         e.preventDefault();
         setCarregando(true);
@@ -37,6 +45,7 @@ export default function Login() {
 
 
     }
+    
 
 
     function cadastrar() {
