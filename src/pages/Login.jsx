@@ -25,7 +25,7 @@ export default function Login() {
         promise.then(resposta => {
             setNome(resposta.data.name);
             setId(resposta.data.id);
-            navigate('/habitos');
+            navigate('/hoje');
             localStorage.token = resposta.data.token;
             localStorage.imagem = resposta.data.image;
             setCarregando(false);

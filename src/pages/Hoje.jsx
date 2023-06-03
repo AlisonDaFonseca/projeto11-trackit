@@ -49,12 +49,12 @@ export default function Hoje() {
         <SCContainerHoje>
             <Topo />
             <SCTitulo>
-                <h1>{dia}, {diaN}/{mes}</h1>
+                <h1 data-test="today">{dia}, {diaN}/{mes}</h1>
                 {habitosConluidosHoje === 0 &&
-                    <span>Nenhum hábito concluído ainda</span>
+                    <span data-test="today-counter">Nenhum hábito concluído ainda</span>
                 }  
                 {habitosConluidosHoje!== 0 &&
-                    <SCCorConcluido>{porcentagem}% dos hábitos concluídos</SCCorConcluido>
+                    <SCCorConcluido data-test="today-counter">{porcentagem}% dos hábitos concluídos</SCCorConcluido>
                 } 
             </SCTitulo>
             {habitosHoje.map((habito) => <HabitoHoje key={habito.id} habito={habito}/>)  }
