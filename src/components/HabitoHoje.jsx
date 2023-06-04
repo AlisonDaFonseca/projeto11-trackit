@@ -10,14 +10,15 @@ import axios from "axios";
 
 
 export default function HabitoHoje({ habito }) {
-
+    
     const { config, atualizaTela } = useContext(UsuarioContext);
     const [seqAtual, setSeqAtual] = useState((habito.done === true || (habito.currentSequence === habito.highestSequence && habito.currentSequence > 0)) ? '#8FC549' : '#666666')
-    const [seqRec, setSeqRec] = useState((habito.currentSequence !== habito.highestSequence || habito.currentSequence <= 0) ? '#666666' : '#8FC549' );
+    const [seqRec, setSeqRec] = useState((habito.currentSequence === habito.highestSequence && habito.currentSequence > 0) ? '#8FC549' : '#666666');
    
 
     function verificaSequencia() {
         const contador = habito.currentSequence + 1;
+       
         if (habito.done === false) {
             if (contador > 0) {
                 setSeqAtual('#8FC549');
@@ -25,14 +26,22 @@ export default function HabitoHoje({ habito }) {
             if (habito.currentSequence === habito.highestSequence) {
                 setSeqRec('#8FC549');
             }
+            if (contador === habito.highestSequence) {
+                setSeqRec('#8FC549');
+            }
         }
         if (habito.done === true) {
             const contador = habito.currentSequence - 1;
+               
             if (contador === 0) {
                 setSeqRec('#666666');
                 setSeqAtual('#666666');
             }
             if (habito.currentSequence !== habito.highestSequence) {
+                setSeqRec('#666666');
+                setSeqAtual('#666666');
+            }
+            if (contador !== habito.highestSequence) {
                 setSeqRec('#666666');
                 setSeqAtual('#666666');
             }
